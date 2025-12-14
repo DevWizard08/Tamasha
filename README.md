@@ -57,7 +57,7 @@ tamasha/
 ### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/<username>/tamasha.git
+git clone https://github.com/DevWizard08/Tamasha.git
 cd tamasha
 ```
 

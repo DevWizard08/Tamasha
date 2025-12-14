@@ -1,9 +1,6 @@
 # Tamasha – Authentication & Authorization Service
 
-Tamasha is a backend authentication and authorization service built using **Node.js, Express, TypeScript, and MongoDB**.  
-It implements **JWT-based authentication**, **refresh tokens**, **role-based access control**, and **Swagger documentation** with curl examples.
-
----
+Tamasha is a backend authentication and authorization service built using Node.js, Express, TypeScript, and MongoDB. It implements JWT-based authentication, refresh tokens, role-based access control, and Swagger documentation with curl examples.
 
 ## 🚀 Features
 
@@ -18,8 +15,6 @@ It implements **JWT-based authentication**, **refresh tokens**, **role-based acc
 - Request logging middleware
 - Fully type-safe (no `any`)
 
----
-
 ## 🧱 Tech Stack
 
 - Node.js
@@ -30,108 +25,119 @@ It implements **JWT-based authentication**, **refresh tokens**, **role-based acc
 - bcrypt
 - Swagger (swagger-jsdoc, swagger-ui-express)
 
----
-
 ## 🔑 Role Mapping
 
 | Role  | Value |
-|------|-------|
-| USER | 1 |
-| ADMIN | 2 |
-
----
+|-------|-------|
+| USER  | 1     |
+| ADMIN | 2     |
 
 ## 📂 Project Structure
 
+```
 tamasha/
 ├── src/
-│ ├── config/
-│ ├── constants/
-│ ├── controllers/
-│ ├── middleware/
-│ ├── models/
-│ ├── routes/
-│ ├── services/
-│ ├── types/
-│ └── utils/
-│
-├── app.ts
+│   ├── config/
+│   ├── constants/
+│   ├── controllers/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
+│   ├── services/
+│   ├── types/
+│   └── utils/
+│   ├── app.ts
 ├── tsconfig.json
 ├── package.json
 └── .env
-
-yaml
-Copy code
-
----
+```
 
 ## ⚙️ Installation & Setup
 
 ### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/<your-username>/tamasha.git
+git clone https://github.com/<username>/tamasha.git
 cd tamasha
-2️⃣ Install Dependencies
-bash
-Copy code
-npm install
-3️⃣ Environment Variables
-Create a .env file in the root directory:
+```
 
-env
-Copy code
+### 2️⃣ Install Dependencies
+
+```bash
+npm install
+```
+
+### 3️⃣ Environment Variables
+
+Create a `.env` file in the root directory:
+
+```env
 PORT=5000
 MONGO_URI=mongodb://localhost:27017/tamasha
 JWT_SECRET=your_jwt_secret
 JWT_EXPIRES_IN=1h
 REFRESH_TOKEN_EXPIRES_IN=7
-4️⃣ Run the Application
-bash
-Copy code
+```
+
+### 4️⃣ Run the Application
+
+```bash
 npm run dev
+```
+
 Server will start on:
 
-arduino
-Copy code
+```
 http://localhost:5000
-📘 Swagger API Documentation
-Swagger UI is integrated into the same server.
+```
 
-Access Swagger here:
+## 📘 Swagger API Documentation
 
-bash
-Copy code
+Swagger UI is integrated into the same server. Access Swagger here:
+
+```
 http://localhost:5000/swagger
+```
+
 Swagger documentation is auto-generated from route-level comments and stays in sync with the APIs.
 
-🔐 Authentication Flow
-pgsql
-Copy code
+## 🔐 Authentication Flow
+
+```
 Register → Login → Access Protected APIs
                     ↓
-              Access Token Expires
+            Access Token Expires
                     ↓
             Refresh Token → New Access Token
-📌 API Endpoints
-🔹 Auth APIs
-Method	Endpoint
-POST	/api/auth/register
-POST	/api/auth/login
-POST	/api/auth/refresh-token
+```
 
-🔹 User APIs (Protected)
-Method	Endpoint	Role
-GET	/api/user/profile	USER
+## 📌 API Endpoints
 
-🔹 Admin APIs (Protected)
-Method	Endpoint	Role
-GET	/api/admin/users	ADMIN
+### 🔹 Auth APIs
 
-🔌 API Usage Examples (curl)
-✅ Register User
-bash
-Copy code
+| Method | Endpoint                    |
+|--------|-----------------------------|
+| POST   | /api/auth/register          |
+| POST   | /api/auth/login             |
+| POST   | /api/auth/refresh-token     |
+
+### 🔹 User APIs (Protected)
+
+| Method | Endpoint              | Role |
+|--------|-----------------------|------|
+| GET    | /api/user/profile     | USER |
+
+### 🔹 Admin APIs (Protected)
+
+| Method | Endpoint              | Role  |
+|--------|-----------------------|-------|
+| GET    | /api/admin/users      | ADMIN |
+
+## 🔌 API Usage Examples (curl)
+
+### ✅ Register User
+
+```bash
 curl --location 'http://localhost:5000/api/auth/register' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -139,61 +145,68 @@ curl --location 'http://localhost:5000/api/auth/register' \
   "password": "password123",
   "role": 2
 }'
-✅ Login
-bash
-Copy code
+```
+
+### ✅ Login
+
+```bash
 curl --location 'http://localhost:5000/api/auth/login' \
 --header 'Content-Type: application/json' \
 --data-raw '{
   "email": "sanjeev@gmail.com",
   "password": "password123"
 }'
-✅ Get User Profile
-bash
-Copy code
+```
+
+### ✅ Get User Profile
+
+```bash
 curl --location 'http://localhost:5000/api/user/profile' \
 --header 'Authorization: Bearer ACCESS_TOKEN'
-✅ Get All Users (Admin Only)
-bash
-Copy code
+```
+
+### ✅ Get All Users (Admin Only)
+
+```bash
 curl --location 'http://localhost:5000/api/admin/users' \
 --header 'Authorization: Bearer ACCESS_TOKEN'
-✅ Refresh Access Token
-bash
-Copy code
+```
+
+### ✅ Refresh Access Token
+
+```bash
 curl --location 'http://localhost:5000/api/auth/refresh-token' \
 --header 'Content-Type: application/json' \
 --data '{
   "refreshToken": "YOUR_REFRESH_TOKEN"
 }'
-🔒 Security Practices
-Passwords are hashed using bcrypt before storing
+```
 
-JWT secrets are stored in environment variables
+## 🔒 Security Practices
 
-Role-based middleware enforces authorization
+- Passwords are hashed using bcrypt before storing
+- JWT secrets are stored in environment variables
+- Role-based middleware enforces authorization
+- Refresh tokens are stored securely in database
+- Type-safe JWT payload and request handling
 
-Refresh tokens are stored securely in database
+## 🧠 Design Decisions
 
-Type-safe JWT payload and request handling
+- Numeric roles used instead of strings for reliability
+- Route-level Swagger documentation using swagger-jsdoc
+- Centralized constants for messages
+- Aggregation pipeline used in refresh token flow
+- No usage of `any` to ensure type safety
 
-🧠 Design Decisions
-Numeric roles used instead of strings for reliability
+## 📝 Scripts
 
-Route-level Swagger documentation using swagger-jsdoc
+```bash
+npm run dev      # Run development server
+npm run build    # Compile TypeScript
+npm start        # Run production build
+```
 
-Centralized constants for messages
+## 👨‍💻 Author
 
-Aggregation pipeline used in refresh token flow
-
-No usage of any to ensure type safety
-
-📝 Scripts
-bash
-Copy code
-npm run dev     # Run development server
-npm run build   # Compile TypeScript
-npm start       # Run production build
-👨‍💻 Author
-Sanjeev Kumar
+**Sanjeev Kumar**  
 Backend Developer

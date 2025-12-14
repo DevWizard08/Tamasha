@@ -58,7 +58,7 @@ tamasha/
 
 ```bash
 git clone https://github.com/DevWizard08/Tamasha.git
-cd tamasha
+cd Tamasha
 ```
 
 ### 2️⃣ Install Dependencies

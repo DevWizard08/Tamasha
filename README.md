@@ -1,7 +1,7 @@
 # Tamasha – Authentication & Authorization Service
 
 Tamasha is a backend authentication and authorization service built using **Node.js, Express, TypeScript, and MongoDB**.  
-It implements **JWT-based authentication**, **refresh tokens**, **role-based access control**, and **Swagger documentation** with **curl examples**.
+It implements **JWT-based authentication**, **refresh tokens**, **role-based access control**, and **Swagger documentation** with curl examples.
 
 ---
 
@@ -34,7 +34,7 @@ It implements **JWT-based authentication**, **refresh tokens**, **role-based acc
 
 ## 🔑 Role Mapping
 
-| Role | Value |
+| Role  | Value |
 |------|-------|
 | USER | 1 |
 | ADMIN | 2 |
@@ -70,7 +70,7 @@ Copy code
 ### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/tamasha.git
+git clone https://github.com/<your-username>/tamasha.git
 cd tamasha
 2️⃣ Install Dependencies
 bash
@@ -128,7 +128,7 @@ GET	/api/user/profile	USER
 Method	Endpoint	Role
 GET	/api/admin/users	ADMIN
 
-🧪 Testing APIs Using curl
+🔌 API Usage Examples (curl)
 ✅ Register User
 bash
 Copy code
@@ -178,7 +178,7 @@ Refresh tokens are stored securely in database
 Type-safe JWT payload and request handling
 
 🧠 Design Decisions
-Numeric roles used instead of strings
+Numeric roles used instead of strings for reliability
 
 Route-level Swagger documentation using swagger-jsdoc
 

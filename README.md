@@ -232,9 +232,7 @@ No device-level or IP-based refresh token tracking
 
 Tokens are passed via Authorization headers instead of HttpOnly cookies
 
-No audit logs or user activity tracking implemented
 
-HTTPS enforcement is assumed at infrastructure level (not handled in code)
 
 ## 👨‍💻 Author
 

@@ -206,6 +206,36 @@ npm run build    # Compile TypeScript
 npm start        # Run production build
 ```
 
+
+## 🧩 Assumptions
+
+Each user is uniquely identified by their email address
+
+User role (USER / ADMIN) is assigned at registration time
+
+One active refresh token is maintained per user
+
+JWT secrets and expiry values are managed securely via environment variables
+
+APIs are consumed by trusted clients (Postman / frontend app) during assignment scope
+
+Application runs in a single-region, single-database setup for simplicity
+
+
+## ⚠️ Limitations
+
+No rate limiting implemented on authentication endpoints (can be added using express-rate-limit)
+
+Refresh tokens are not yet rotated on every refresh request
+
+No device-level or IP-based refresh token tracking
+
+Tokens are passed via Authorization headers instead of HttpOnly cookies
+
+No audit logs or user activity tracking implemented
+
+HTTPS enforcement is assumed at infrastructure level (not handled in code)
+
 ## 👨‍💻 Author
 
 **Sanjeev Kumar**  

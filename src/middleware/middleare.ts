@@ -45,12 +45,12 @@ export const isUser = (
     const decoded = verifyToken(req);
 
     if (decoded.role !== Role.USER) {
-      return res.status(403).json({ message: "User access only" });
+      return res.status(403).json({ message: MESSAGES.USER.USER_ONLY });
     }
 
     req.user = decoded;
     next();
   } catch {
-    return res.status(401).json({ message: "Unauthorized" });
+    return res.status(401).json({ message: MESSAGES.AUTH.UNAUTHORIZED });
   }
 };

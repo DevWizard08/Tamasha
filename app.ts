@@ -1,6 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import dotenv from "dotenv";
+import cors from "cors";
 import { connectDB } from "./src/config/db";
 import authRoutes from "./src/routes/auth";
 import adminRoutes from "./src/routes/admin";
@@ -14,7 +15,8 @@ dotenv.config();
 
 const app = express();
 app.use(express.json());
-app.use(morgan("combined"))
+app.use(morgan("combined"));
+app.use(cors());
 
 
 app.use("/api/auth",authRoutes);

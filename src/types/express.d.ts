@@ -1,9 +1,12 @@
-import { JwtPayload } from "./auth";
+import { Role } from "../models/user";
 
 declare global {
   namespace Express {
     interface Request {
-      user?: JwtPayload;
+      userId?: string;
+      role?: Role;
     }
   }
 }
+
+export {};

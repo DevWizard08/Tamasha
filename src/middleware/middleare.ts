@@ -29,10 +29,13 @@ export const isAdmin = (
       return res.status(403).json({ message: MESSAGES.ADMIN.ADMIN_ONLY });
     }
 
-    req.user = decoded;
+    req.userId = decoded.userId;
+    req.role = decoded.role;
     next();
-  } catch {
-    return res.status(401).json({ message:MESSAGES.AUTH.UNAUTHORIZED });
+  } catch(err) {
+    console.log(err);
+    
+    return res.status(401).json({ message:MESSAGES.AUTH.TOKEN_EXPIRED });
   }
 };
 
@@ -44,13 +47,16 @@ export const isUser = (
   try {
     const decoded = verifyToken(req);
 
-    if (decoded.role !== Role.USER) {
+    if (![Role.USER, Role.ADMIN].includes(decoded.role)) {
       return res.status(403).json({ message: MESSAGES.USER.USER_ONLY });
     }
 
-    req.user = decoded;
+    req.userId = decoded.userId;
+    req.role = decoded.role;
     next();
-  } catch {
-    return res.status(401).json({ message: MESSAGES.AUTH.UNAUTHORIZED });
+  } catch (err){
+    console.log(err);
+    
+    return res.status(401).json({ message: MESSAGES.AUTH.TOKEN_EXPIRED });
   }
 };

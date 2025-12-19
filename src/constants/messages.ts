@@ -15,6 +15,7 @@ export const MESSAGES = {
   USER: {
     PROFILE_FETCH_SUCCESS: "User profile fetched successfully",
     USER_ONLY: "User access only",
+    USERID_IS_MISSING: "User ID is missing",
   },
 
   ADMIN: {

@@ -1,9 +1,11 @@
 import { Request ,Response } from "express";
-import user from "../models/user";
+import { getAllUsersService } from "../services/admin";
 import { MESSAGES } from "../constants/messages";
+
+
 export const getAllUsers = async(req:Request,res:Response) => {
     try{
-    const users = await user.find().select("-password");
+    const users = await getAllUsersService();
     return res.json(users);
     }
     catch(err){

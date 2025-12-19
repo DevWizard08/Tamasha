@@ -1,4 +1,5 @@
 import express from "express";
+import morgan from "morgan";
 import dotenv from "dotenv";
 import { connectDB } from "./src/config/db";
 import authRoutes from "./src/routes/auth";
@@ -6,14 +7,13 @@ import adminRoutes from "./src/routes/admin";
 import userRoutes from "./src/routes/user";
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./src/config/swagger";
-import { requestLogger } from "./src/middleware/logger";
 
 
 dotenv.config();
 
 const app = express();
-app.use(requestLogger);
 app.use(express.json());
+app.use(morgan("combined"))
 
 
 app.use("/api/auth",authRoutes);

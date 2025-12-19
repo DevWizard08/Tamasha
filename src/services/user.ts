@@ -1,10 +1,11 @@
 import user from "../models/user";
+import { AppError } from "../utils/AppError";
 
 
-export const getAllUsersService = async(userId:string) => {
+export const getUsersbyId = async(userId:string) => {
 const users = await user.findById(userId).select("-password");
 if(!users){
-    throw new Error("No users found");
+    throw new AppError("No users found",409);
 }
 return users;
 }

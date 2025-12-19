@@ -3,6 +3,7 @@ import crypto from "crypto";
 import user from "../models/user";
 import { RefreshToken } from "../models/refreshToken";
 import { generateAccessToken } from "../utils/util";
+import { AppError } from "../utils/AppError";
 
 export const registerUser = async (
   email: string,
@@ -11,10 +12,10 @@ export const registerUser = async (
 ) => {
   const existingUser = await user.findOne({ email });
   if (existingUser) {
-    throw new Error("Email already in use");
+    throw new AppError("Email already in use",409);
   } 
   if (!role){
-    throw new Error("Role Missing");
+    throw new AppError("Role Missing",400);
   }
   const User = await user.create({
     email,
@@ -30,10 +31,10 @@ export const registerUser = async (
 }
 export const loginUser = async (email: string, password: string) => {
   const User = await user.findOne({ email });
-  if (!User) throw new Error("Invalid credentials");
+  if (!User) throw new AppError("Invalid credentials",401);
 
   const match = await bcrypt.compare(password, User.password);
-  if (!match) throw new Error("Invalid credentials");
+  if (!match) throw new AppError("Invalid credentials",401);
 
   const accessToken = generateAccessToken({
     userId: User._id,
@@ -83,7 +84,7 @@ export const refreshAccessToken = async (token: string) => {
   ]);
 
   if (!result.length) {
-    throw new Error("Invalid or expired refresh token");
+    throw new AppError("Invalid or expired refresh token",409);
   }
 
   return generateAccessToken({

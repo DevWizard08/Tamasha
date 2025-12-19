@@ -7,6 +7,7 @@ import adminRoutes from "./src/routes/admin";
 import userRoutes from "./src/routes/user";
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./src/config/swagger";
+import { errorHandler } from "./src/middleware/error";
 
 
 dotenv.config();
@@ -22,7 +23,7 @@ app.use("/api/admin",adminRoutes);
 
 app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-
+app.use(errorHandler);
 
 connectDB();
 

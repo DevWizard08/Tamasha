@@ -15,8 +15,12 @@ export const getProfile = async(req: Request, res: Response) => {
     user: result,
   });
 }
-catch(err){
-  console.log(err);
+catch (err: unknown) {
+    if (err instanceof Error) {
+      return res.status(400).json({
+        message: err.message,
+      });
+    }
   return res.status(500).json({message:MESSAGES.COMMON.INTERNAL_SERVER_ERROR});
 }
 };
